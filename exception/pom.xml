@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.onlinemarketplace</groupId>
+    <artifactId>OnlineMarketPlace</artifactId>
+    <version>0.0.4-SNAPSHOT</version>
+  </parent>
+  <groupId>com.onlinemarketplace.exception</groupId>
+  <artifactId>exception</artifactId>
+  <name>Local Exception Config</name>
+  <description>Local Exception Config</description>
+  
+  <dependencies>
+   
+    <!-- TODO: repo classes should be moved to their owning projects -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+  
+    
+  </dependencies>
+  
+</project>

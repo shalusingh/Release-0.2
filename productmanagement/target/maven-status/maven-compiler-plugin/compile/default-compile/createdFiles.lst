@@ -1,0 +1,8 @@
+com\onlinemarketplace\product\service\ProductNameIdMappingService.class
+com\onlinemarketplace\product\manager\ProductNameIdMappingManager.class
+com\onlinemarketplace\product\jaxb\Mapping.class
+com\onlinemarketplace\product\service\ProductService.class
+com\onlinemarketplace\product\helper\PageingHelper.class
+com\onlinemarketplace\product\manager\CSVManager.class
+com\onlinemarketplace\product\jaxb\ProductDtoMap.class
+com\onlinemarketplace\product\config\ProductConfig.class

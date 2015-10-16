@@ -1,0 +1,5 @@
+com\onlinemarketplace\product\helper\ProductNameIdMappingServicceTest.class
+com\onlinemarketplace\product\helper\PageingHealperTest.class
+com\onlinemarketplace\product\config\ProductConfigTest.class
+com\onlinemarketplace\product\service\ProductServiceTest.class
+com\onlinemarketplace\product\helper\CSVManagerTest.class

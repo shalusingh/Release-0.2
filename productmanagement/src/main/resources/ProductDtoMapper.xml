@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<map>
+		<product>productId</product>
+		<productDto>productId</productDto>
+	</map>
+	<map>
+		<product>productCode</product>
+		<productDto>productCode</productDto>
+	</map>
+	<map>
+		<product>productStatus</product>
+		<productDto>status</productDto>
+	</map>
+</mappings>
