@@ -2,13 +2,15 @@ package com.onlinemarketplace.dataentity.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.onlinemarketplace.dataentity.base.AbstractEntity;
-import com.onlinemarketplace.dataentity.enums.Status;
 
 
 /**
@@ -28,8 +30,9 @@ public class ProductSubCategory extends AbstractEntity implements Serializable {
 	@Column(length=50,nullable=false)
 	private String categoryName;
 	
-	@Column(length=1,nullable=false)
-	private Status status;
+	 
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	private ProductCategory category;
 	 
 	public ProductSubCategory() {
 		super();
@@ -51,28 +54,23 @@ public class ProductSubCategory extends AbstractEntity implements Serializable {
 		this.categoryName = categoryName;
 	}
 
-	
-	public Status getStatus() {
-		return status;
+	public ProductCategory getCategory() {
+		return category;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setCategory(ProductCategory category) {
+		this.category = category;
 	}
-
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
 		result = prime * result + ((productCategory == null) ? 0 : productCategory.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -83,6 +81,11 @@ public class ProductSubCategory extends AbstractEntity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductSubCategory other = (ProductSubCategory) obj;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
 		if (categoryName == null) {
 			if (other.categoryName != null)
 				return false;
@@ -93,19 +96,16 @@ public class ProductSubCategory extends AbstractEntity implements Serializable {
 				return false;
 		} else if (!productCategory.equals(other.productCategory))
 			return false;
-		if (status != other.status)
-			return false;
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "ProductSubCategory [productCategory=" + productCategory + ", categoryName=" + categoryName + ", status="
-				+ status + "]";
+		return "ProductSubCategory [productCategory=" + productCategory + ", categoryName=" + categoryName
+				+ ", category=" + category + "]";
 	}
 
+	
 	 
  
 	 
