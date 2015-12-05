@@ -5,137 +5,150 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
+import com.onlinemarketplace.dataentity.base.NaturalAbstractEntity;
 
 /**
  * @author jitu
  */
 
 @Entity
-@Table(name="wishlist")
-public class WishList implements Serializable {
+@Table(name = "wishlist")
+public class WishList
+    extends NaturalAbstractEntity<Long>
+    implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column
-	private Long customerId ;
-	
-	@Column
-	private Long productId ;
-	
-	@Column(nullable=false)
-	private Timestamp date;
-	
-	@Column(nullable=false)
-	private int status;
+    @Column
+    private Long customerId;
 
-	public WishList() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Column
+    private Long productId;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(nullable = false)
+    private Timestamp date;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Column(nullable = false)
+    private int status;
 
-	public Long getProductId() {
-		return productId;
-	}
+    public WishList() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-	public Timestamp getDate() {
-		return date;
-	}
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDate(Timestamp date) {
-		this.date = date;
-	}
+    public Long getProductId() {
+        return productId;
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public Timestamp getDate() {
+        return date;
+    }
 
-	
-	public Long getCustomerId() {
-		return customerId;
-	}
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
-		result = prime * result + status;
-		return result;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		WishList other = (WishList) obj;
-		if (customerId == null) {
-			if (other.customerId != null)
-				return false;
-		} else if (!customerId.equals(other.customerId))
-			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (productId == null) {
-			if (other.productId != null)
-				return false;
-		} else if (!productId.equals(other.productId))
-			return false;
-		if (status != other.status)
-			return false;
-		return true;
-	}
+    public Long getCustomerId() {
+        return customerId;
+    }
 
-	@Override
-	public String toString() {
-		return "WishList [id=" + id + ", customerId=" + customerId + ", productId=" + productId + ", date=" + date
-				+ ", status=" + status + "]";
-	}
-	
-	
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime
+            * result
+            + ((customerId == null)
+                ? 0 : customerId.hashCode());
+        result = prime
+            * result
+            + ((date == null)
+                ? 0 : date.hashCode());
+        result = prime
+            * result
+            + ((id == null)
+                ? 0 : id.hashCode());
+        result = prime
+            * result
+            + ((productId == null)
+                ? 0 : productId.hashCode());
+        result = prime
+            * result
+            + status;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        WishList other = (WishList) obj;
+        if (customerId == null) {
+            if (other.customerId != null)
+                return false;
+        } else
+            if (!customerId.equals(other.customerId))
+                return false;
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else
+            if (!date.equals(other.date))
+                return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else
+            if (!id.equals(other.id))
+                return false;
+        if (productId == null) {
+            if (other.productId != null)
+                return false;
+        } else
+            if (!productId.equals(other.productId))
+                return false;
+        if (status != other.status)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "WishList [id="
+            + id + ", customerId=" + customerId + ", productId=" + productId + ", date=" + date + ", status=" + status
+            + "]";
+    }
+
 }

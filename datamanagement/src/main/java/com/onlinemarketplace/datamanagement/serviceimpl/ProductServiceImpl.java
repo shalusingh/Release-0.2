@@ -16,53 +16,45 @@ import com.onlinemarketplace.datamanagement.service.ProductService;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService  {
-	
-	@Autowired
-	ProductRepository ProductRepository;
-	
-	@Autowired
-	private EntityManager entityManager;
-	
-	
-	 
-	public ProductRepository getRepository() {
-		return ProductRepository;
-	}
+public class ProductServiceImpl
+    implements ProductService {
 
+    @Autowired
+    ProductRepository ProductRepository;
 
-	public EntityManager getEntityManager() {
-		 return entityManager;
-	}
+    @Autowired
+    private EntityManager entityManager;
 
+    public ProductRepository getRepository() {
+        return ProductRepository;
+    }
 
-	 
-	@SuppressWarnings("unchecked")
-	public List<Product> getByProperyNameAndValue() {
-		return entityManager.createNamedQuery("Product.All.Join").getResultList();
-	}
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 
+    @SuppressWarnings("unchecked")
+    public List<Product> getByProperyNameAndValue() {
+        return entityManager.createNamedQuery("Product.All.Join").getResultList();
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<Product> getByProperyNameAndValue(Map<String, String> param) {
-		return entityManager.createQuery(ProductHelper.createQuery(param)).getResultList();
-	}
+    @SuppressWarnings("unchecked")
+    public List<Product> getByProperyNameAndValue(Map<String, String> param) {
+        return entityManager.createQuery(ProductHelper.createQuery(param)).getResultList();
+    }
 
+    @SuppressWarnings("unchecked")
+    public List<Product> getAll() {
+        return entityManager.createNamedQuery("Product.All").getResultList();
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<Product> getAll() {
-		return entityManager.createNamedQuery("Product.All").getResultList();
-	}
+    public void save(Product product) {
+        entityManager.persist(product);
+    }
 
+    public void saveAll(List<Product> products) {
+        // TODO Auto-generated method stub
 
-	public void save(Product product) {
-		 entityManager.persist(product);;
-	}
-
-
-	public void saveAll(List<Product> products) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
 }

@@ -9,24 +9,33 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.onlinemarketplace.dataentity.domain.ProductCategory;
+import com.onlinemarketplace.dataentity.enums.Status;
 import com.onlinemarketplace.datamanagement.config.DataManagementApplicationContext;
 import com.onlinemarketplace.datamanagement.service.ProductCategoryService;
 
-@ContextConfiguration(classes={DataManagementApplicationContext.class})
+@ContextConfiguration(classes = {
+    DataManagementApplicationContext.class })
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ProductCategoryImplTest {
 
-	@Autowired
-	private ProductCategoryService service;
-	
-	@Test
-	public void getProductCategory(){
-		ProductCategory category = service.getRepository().getByName("RACING");
-		Assert.assertEquals(10003L, Long.parseLong( category.getId()+"" ));
-	}
-	
-	
-	
+    @Autowired
+    private ProductCategoryService service;
+
+    @Test
+    public void getProductCategory() {
+        ProductCategory category = service.getRepository().getByName("RACING");
+        Assert.assertEquals(10003L, Long.parseLong(category.getId()
+            + ""));
+    }
+
+    @Test
+    public void insert() {
+        ProductCategory category = new ProductCategory();
+        category.setCategoryName("RACING");
+        category.setStatus(Status.ACTIVE);
+
+        service.getRepository().save(category);
+    }
 
 }

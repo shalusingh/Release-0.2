@@ -1,112 +1,144 @@
 package com.onlinemarketplace.dataentity.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.onlinemarketplace.dataentity.base.AbstractEntity;
-
+import com.onlinemarketplace.dataentity.base.NaturalAbstractEntity;
 
 /**
  * @author jitendra.sagoriya
- * 
+ * @version $Revision: $($Date: $)
+ *
  */
 @Entity
-@Table(name="productsubcategory")
-public class ProductSubCategory extends AbstractEntity implements Serializable {
+@Table(name = "productsubcategory")
+public class ProductSubCategory
+    extends NaturalAbstractEntity<Long>
 
-	private static final long serialVersionUID = 1L;
-	
-	
-	@Transient
-	private ProductCategory productCategory;
-	
-	@Column(length=50,nullable=false)
-	private String categoryName;
-	
-	 
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private ProductCategory category;
-	 
-	public ProductSubCategory() {
-		super();
-	}
+    implements Serializable {
 
-	public ProductCategory getProductCategory() {
-		return productCategory;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void setProductCategory(ProductCategory productCategory) {
-		this.productCategory = productCategory;
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productCategory")
+    private List<Product> product;
 
-	public String getCategoryName() {
-		return categoryName;
-	}
+    @Column(length = 50, nullable = false)
+    private String categoryName;
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private ProductCategory category;
 
-	public ProductCategory getCategory() {
-		return category;
-	}
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "subCategory")
+    private List<SubSubCategory> subSubCategory;
 
-	public void setCategory(ProductCategory category) {
-		this.category = category;
-	}
+    public ProductSubCategory() {
+        super();
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
-		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
-		result = prime * result + ((productCategory == null) ? 0 : productCategory.hashCode());
-		return result;
-	}
+    public List<Product> getProduct() {
+        return product;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductSubCategory other = (ProductSubCategory) obj;
-		if (category == null) {
-			if (other.category != null)
-				return false;
-		} else if (!category.equals(other.category))
-			return false;
-		if (categoryName == null) {
-			if (other.categoryName != null)
-				return false;
-		} else if (!categoryName.equals(other.categoryName))
-			return false;
-		if (productCategory == null) {
-			if (other.productCategory != null)
-				return false;
-		} else if (!productCategory.equals(other.productCategory))
-			return false;
-		return true;
-	}
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
 
-	@Override
-	public String toString() {
-		return "ProductSubCategory [productCategory=" + productCategory + ", categoryName=" + categoryName
-				+ ", category=" + category + "]";
-	}
+    public List<SubSubCategory> getSubSubCategory() {
+        return subSubCategory;
+    }
 
-	
-	 
- 
-	 
+    public void setSubSubCategory(List<SubSubCategory> subSubCategory) {
+        this.subSubCategory = subSubCategory;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime
+            * result
+            + ((category == null)
+                ? 0 : category.hashCode());
+        result = prime
+            * result
+            + ((categoryName == null)
+                ? 0 : categoryName.hashCode());
+        result = prime
+            * result
+            + ((product == null)
+                ? 0 : product.hashCode());
+        result = prime
+            * result
+            + ((subSubCategory == null)
+                ? 0 : subSubCategory.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ProductSubCategory other = (ProductSubCategory) obj;
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else
+            if (!category.equals(other.category))
+                return false;
+        if (categoryName == null) {
+            if (other.categoryName != null)
+                return false;
+        } else
+            if (!categoryName.equals(other.categoryName))
+                return false;
+        if (product == null) {
+            if (other.product != null)
+                return false;
+        } else
+            if (!product.equals(other.product))
+                return false;
+        if (subSubCategory == null) {
+            if (other.subSubCategory != null)
+                return false;
+        } else
+            if (!subSubCategory.equals(other.subSubCategory))
+                return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductSubCategory [product="
+            + product + ", categoryName=" + categoryName + ", category=" + category + ", subSubCategory="
+            + subSubCategory + "]";
+    }
+
 }

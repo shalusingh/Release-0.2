@@ -13,7 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.onlinemarketplace.dataentity.base.AbstractEntity;
+import com.onlinemarketplace.dataentity.base.NaturalAbstractEntity;
 
 /**
  * @author jitendra.sagoriya Nov 27, 2015 2015
@@ -22,7 +22,7 @@ import com.onlinemarketplace.dataentity.base.AbstractEntity;
 @Entity
 
 public class SubSubCategory
-    extends AbstractEntity
+    extends NaturalAbstractEntity<Long>
     implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class SubSubCategory
     @Column(length = 50, nullable = false)
     private String categoryName;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, optional = true)
     private ProductSubCategory subCategory;
 
     public String getCategoryName() {
