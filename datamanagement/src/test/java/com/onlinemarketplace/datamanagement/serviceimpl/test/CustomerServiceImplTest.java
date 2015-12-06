@@ -24,7 +24,6 @@ public class CustomerServiceImplTest {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Test
     public Customer getCustomer() {
         Customer customer = new Customer();
         customer.setCountry("INDIA");
@@ -44,7 +43,6 @@ public class CustomerServiceImplTest {
     @Test
     public void testFindByFirstName() {
         Customer customer = new Customer();
-        customerRepository.save(getCustomer());
         customer = customerRepository.getByEmail("monika.gupta@cmc.com");
         Assert.assertEquals("Monika Gupta", customer.getName());
         ;
@@ -53,9 +51,7 @@ public class CustomerServiceImplTest {
 
     @Test
     public void testFindByEmailAndPassword() {
-        Customer customer = getCustomer();
-        customer.setEmail("monika.gupta1@cmc.com");
-        customerRepository.save(customer);
+
         Customer customer1 = customerRepository.getByUserNameAndPassword("monika.gupta1@cmc.com", "123456");
         Assert.assertEquals("Monika Gupta", customer1.getName());
         ;

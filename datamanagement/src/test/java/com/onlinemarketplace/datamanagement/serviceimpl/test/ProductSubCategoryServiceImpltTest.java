@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -68,14 +69,14 @@ public class ProductSubCategoryServiceImpltTest {
         subCategory = service.getRepository().getByName("KIDS", categoryService.getRepository().getByName(
             "EDUCATION"));
         assertNotNull(subCategory);
-        Assert.assertEquals(new Long(210001L), subCategory.getId());
+        Assert.assertEquals(new Long(210006L), subCategory.getId());
     }
 
-    @Test 
+    @Test(expected = IncorrectResultSizeDataAccessException.class)
     public void getSubCategoryException() {
         ProductSubCategory subCategory = null;
         subCategory = service.getRepository().getByName("KIDS");
-        System.out.println(subCategory);
+
         assertNotNull(subCategory);
         Assert.assertEquals(new Long(210001L), subCategory.getId());
     }

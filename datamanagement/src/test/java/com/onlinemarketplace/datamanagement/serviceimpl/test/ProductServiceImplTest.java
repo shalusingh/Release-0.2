@@ -53,26 +53,42 @@ public class ProductServiceImplTest {
 
     @Test
     public void getByCategory() {
-        List<Product> products = service.getRepository().getByCategory(4L);
-        assertEquals(4, products.size());
+
+        List<Product> products = service.getRepository().getByCategory(pService.getRepository().getByName("RACING"));
+        assertEquals(8, products.size());
     }
 
     @Test
     public void getBySubCategory() {
-        List<Product> products = service.getRepository().getBySubCategory(2);
+
+        List<Product> products = service.getRepository().getBySubCategory(subCategoryService.getRepository()
+            .getByName("CAR", pService.getRepository().getByName("RACING")));
         assertEquals(7, products.size());
         assertNotNull(products);
     }
 
     @Test
     public void getBySubCategoryNull() {
-        List<Product> products = service.getRepository().getBySubCategory(22);
+        ProductSubCategory subCategory = new ProductSubCategory();
+        subCategory.setId(22l);
+        subCategory.setCategoryName("new category");
+
+        List<Product> products = service.getRepository().getBySubCategory(subCategory);
         assertEquals(true, products.isEmpty());
     }
 
     @Test
     public void getByCategoryAndSubCategoryAndPrice() {
-        List<Product> products = service.getRepository().getByCategoryAndSubCategoryAndPrice(10003, 2, 1000, 2000);
+        ProductCategory category = new ProductCategory();
+        category.setId(200001l);
+        category.setCategoryName("RACING");
+
+        ProductSubCategory subCategory = new ProductSubCategory();
+        subCategory.setId(210001l);
+        subCategory.setCategoryName("CAR");
+
+        List<Product> products = service.getRepository().getByCategoryAndSubCategoryAndPrice(category, subCategory,
+            1000, 2000);
         assertNotNull(products);
         assertEquals(2, products.size());
     }
@@ -86,21 +102,29 @@ public class ProductServiceImplTest {
 
     @Test
     public void getByCategoryLike() {
-        List<Product> products = service.getRepository().getByCategory("Need", 10003);
+        ProductCategory category = new ProductCategory();
+        category.setId(200001l);
+        category.setCategoryName("RACING");
+
+        List<Product> products = service.getRepository().getByCategory("Need", category);
         assertNotNull(products);
         assertEquals(7, products.size());
     }
 
     @Test
     public void getByCategoryLikeNull() {
-        List<Product> products = service.getRepository().getByCategory("Need", 4);
+        ProductCategory category = new ProductCategory();
+        category.setId(200011l);
+        category.setCategoryName("RACING");
+
+        List<Product> products = service.getRepository().getByCategory("Need", category);
         assertEquals(true, products.isEmpty());
 
     }
 
     @Test
     public void getProduct() {
-        assertNotNull(service.getRepository().findOne(1L));
+        assertNotNull(service.getRepository().findOne(36l));
     }
 
     public void insertProduct() {

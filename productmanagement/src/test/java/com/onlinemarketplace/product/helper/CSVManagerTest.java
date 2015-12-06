@@ -89,8 +89,6 @@ public class CSVManagerTest {
         Assert.assertNotNull(file);
     }
 
-    @Test
-
     public void loadDataBase() {
         List<Product> products = manager.readCSV("product.csv");
         int counter = 0;
