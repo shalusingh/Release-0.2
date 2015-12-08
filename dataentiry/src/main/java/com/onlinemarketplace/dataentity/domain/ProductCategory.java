@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onlinemarketplace.dataentity.base.StateFullNaturalEntity;
 import com.onlinemarketplace.dataentity.enums.Status;
 
@@ -32,6 +33,7 @@ public class ProductCategory
     @Column(length = 50, unique = true)
     private String categoryName;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "productCategory")
     private List<Product> product;
 

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onlinemarketplace.dataentity.base.NaturalAbstractEntity;
 
 /**
@@ -27,6 +28,7 @@ public class ProductSubCategory
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productCategory")
     private List<Product> product;
 
