@@ -112,6 +112,13 @@ public class ProductServiceImplTest {
     }
 
     @Test
+    public void getByCategoryByName() {
+        List<Product> products = service.getRepository().getByCategory("Need", "RACING");
+        assertNotNull(products);
+        assertEquals(7, products.size());
+    }
+
+    @Test
     public void getByCategoryLikeNull() {
         ProductCategory category = new ProductCategory();
         category.setId(200011l);

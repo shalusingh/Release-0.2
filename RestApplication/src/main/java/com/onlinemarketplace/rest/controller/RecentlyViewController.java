@@ -21,7 +21,7 @@ import com.onlinemarketplace.dataentity.domain.Product;
 import com.onlinemarketplace.dataentity.domain.RecntlyView;
 import com.onlinemarketplace.datamanagement.repository.ProductRepository;
 import com.onlinemarketplace.datamanagement.repository.RecntlyViewRepository;
-import com.onlinemarketplace.product.service.ProductService;
+import com.onlinemarketplace.product.service.ProductServiceCache;
 import com.onlinemarketplace.rest.responce.Response;
 
 @Controller
@@ -32,7 +32,7 @@ public class RecentlyViewController {
     private RecntlyViewRepository recntlyViewRepository;
 
     @Autowired
-    ProductService service;
+    ProductServiceCache service;
 
     @Autowired
     ProductRepository repository;

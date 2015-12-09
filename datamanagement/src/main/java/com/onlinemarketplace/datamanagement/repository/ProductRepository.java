@@ -28,11 +28,17 @@ public interface ProductRepository
     @Query("SELECT p FROM Product p WHERE P.productCategory = :id")
     public List<Product> getByCategory(@Param("id") Long id);
 
+    @Query("SELECT p FROM Product p WHERE P.productCategory.categoryName = :categoryName")
+    public List<Product> getByCategory(@Param("categoryName") String categoryName);
+
     @Query("SELECT p FROM Product p WHERE P.productCategory = :productCategory")
     public List<Product> getByCategory(@Param("productCategory") ProductCategory productCategory);
 
-    @Query("SELECT p FROM Product p WHERE P.productSubCategory = :id")
+    @Query("SELECT p FROM Product p WHERE P.productSubCategory.id = :id")
     public List<Product> getBySubCategory(@Param("id") long id);
+
+    @Query("SELECT p FROM Product p WHERE P.productSubCategory.categoryName = :categoryName")
+    public List<Product> getBySubCategory(@Param("categoryName") String categoryName);
 
     @Query("SELECT p FROM Product p WHERE P.productSubCategory = :productSubCategory")
     public List<Product> getBySubCategory(@Param("productSubCategory") ProductSubCategory productSubCategory);
@@ -40,8 +46,12 @@ public interface ProductRepository
     @Query("SELECT p FROM Product p WHERE P.id = :id")
     public List<Product> getById(@Param("id") long id);
 
-    @Query("SELECT p FROM Product p WHERE P.productCategory.id = :cid AND P.productSubCategory = :sid")
+    @Query("SELECT p FROM Product p WHERE P.productCategory.id = :cid AND P.productSubCategory.id = :sid")
     public List<Product> getByCategoryAandSubCategory(@Param("cid") long cid, @Param("sid") long sid);
+
+    @Query("SELECT p FROM Product p WHERE P.productCategory.categoryName = :categoryName AND P.productSubCategory.categoryName = :subcategoryName")
+    public List<Product> getByCategoryAandSubCategory(@Param("categoryName") String categoryName,
+        @Param("subcategoryName") String subcategoryName);
 
     @Query("SELECT p FROM Product p WHERE P.productCategory = :productCategory AND P.productSubCategory = :productSubCategory")
     public List<Product> getByCategoryAandSubCategory(@Param("productCategory") ProductCategory productCategory,
@@ -53,9 +63,13 @@ public interface ProductRepository
     @Query("SELECT p FROM Product p WHERE P.productCode = :code")
     public List<Product> getBycode(@Param("code") String code);
 
-    @Query("SELECT p FROM Product p WHERE P.productCategory = :cid AND P.productSubCategory = :sid AND p.price >= :min AND p.price <= :max")
+    @Query("SELECT p FROM Product p WHERE P.productCategory.id = :cid AND P.productSubCategory.id = :sid AND p.price >= :min AND p.price <= :max")
     public List<Product> getByCategoryAndSubCategoryAndPrice(@Param("cid") long cid, @Param("sid") long sid,
         @Param("min") float min, @Param("max") float max);
+
+    @Query("SELECT p FROM Product p WHERE P.productCategory.categoryName = :categoryName AND P.productSubCategory.categoryName = :subcategoryName AND p.price >= :min AND p.price <= :max")
+    public List<Product> getByCategoryAndSubCategoryAndPrice(@Param("categoryName") String categoryName,
+        @Param("subcategoryName") String subcategoryName, @Param("min") float min, @Param("max") float max);
 
     @Query("SELECT p FROM Product p WHERE P.productCategory = :productCategory AND P.productSubCategory = :productSubCategory AND p.price >= :min AND p.price <= :max")
     public List<Product> getByCategoryAndSubCategoryAndPrice(
@@ -63,9 +77,13 @@ public interface ProductRepository
         @Param("productSubCategory") ProductSubCategory productSubCategory, @Param("min") float min,
         @Param("max") float max);
 
-    @Query("SELECT p FROM Product p WHERE P.productCategory = :cid AND P.productSubCategory = :sid AND p.listingPrice >= :min AND p.price <= :max")
+    @Query("SELECT p FROM Product p WHERE P.productCategory.id = :cid AND P.productSubCategory.id = :sid AND p.listingPrice >= :min AND p.price <= :max")
     public List<Product> getByCategoryAndSubCategoryAndLPrice(@Param("cid") long cid, @Param("sid") long sid,
         @Param("min") float min, @Param("max") float max);
+
+    @Query("SELECT p FROM Product p WHERE P.productCategory.categoryName = :categoryName AND P.productSubCategory.categoryName = :subcategoryName AND p.listingPrice >= :min AND p.price <= :max")
+    public List<Product> getByCategoryAndSubCategoryAndLPrice(@Param("categoryName") String categoryName,
+        @Param("subcategoryName") String subcategoryName, @Param("min") float min, @Param("max") float max);
 
     @Query("SELECT p FROM Product p WHERE P.productCategory = :productCategory AND P.productSubCategory = :productSubCategory AND p.listingPrice >= :min AND p.price <= :max")
     public List<Product> getByCategoryAndSubCategoryAndLPrice(
@@ -73,9 +91,13 @@ public interface ProductRepository
         @Param("productSubCategory") ProductSubCategory productSubCategory, @Param("min") float min,
         @Param("max") float max);
 
-    @Query("SELECT p FROM Product p WHERE P.productCategory = :cid AND P.productSubCategory = :sid AND p.castPrice >= :min AND p.price <= :max")
+    @Query("SELECT p FROM Product p WHERE P.productCategory.id = :cid AND P.productSubCategory.id = :sid AND p.castPrice >= :min AND p.price <= :max")
     public List<Product> getByCategoryAndSubCategoryAndCPrice(@Param("cid") long cid, @Param("sid") long sid,
         @Param("min") float min, @Param("max") float max);
+
+    @Query("SELECT p FROM Product p WHERE P.productCategory.categoryName = :categoryName AND P.productSubCategory.categoryName = :subcategoryName AND p.castPrice >= :min AND p.price <= :max")
+    public List<Product> getByCategoryAndSubCategoryAndCPrice(@Param("categoryName") String categoryName,
+        @Param("subcategoryName") String subcategoryName, @Param("min") float min, @Param("max") float max);
 
     @Query("SELECT p FROM Product p WHERE P.productCategory = :productCategory AND P.productSubCategory = :productSubCategory AND p.castPrice >= :min AND p.price <= :max")
     public List<Product> getByCategoryAndSubCategoryAndCPrice(
@@ -86,32 +108,47 @@ public interface ProductRepository
     @Query("SELECT p FROM Product p WHERE P.name LIKE %:name%")
     public List<Product> likeName(@Param("name") String name);
 
-    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory = :id")
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory.id = :id")
     public List<Product> getByCategory(@Param("name") String name, @Param("id") long id);
+
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory.categoryName = :categoryName")
+    public List<Product> getByCategory(@Param("name") String name, @Param("categoryName") String categoryName);
 
     @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory = :productCategory")
     public List<Product> getByCategory(@Param("name") String name,
         @Param("productCategory") ProductCategory productCategory);
 
-    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productSubCategory = :id")
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productSubCategory.id = :id")
     public List<Product> getBySubCategory(@Param("name") String name, @Param("id") long id);
+
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productSubCategory.categoryName = :categoryName")
+    public List<Product> getBySubCategory(@Param("name") String name, @Param("categoryName") String categoryName);
 
     @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productSubCategory = :productSubCategory")
     public List<Product> getBySubCategory(@Param("name") String name,
         @Param("productSubCategory") ProductSubCategory productSubCategory);
 
-    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory = :cid AND P.productSubCategory = :sid")
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory.id = :cid AND P.productSubCategory.id = :sid")
     public List<Product> getByCategoryAandSubCategory(@Param("name") String name, @Param("cid") long cid,
         @Param("sid") long sid);
+
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory.categoryName = :categoryName AND P.productSubCategory.categoryName = :subcategoryName")
+    public List<Product> getByCategoryAandSubCategory(@Param("name") String name,
+        @Param("categoryName") String categoryName, @Param("subcategoryName") String subcategoryName);
 
     @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory = :productCategory AND P.productSubCategory = :productSubCategory")
     public List<Product> getByCategoryAandSubCategory(@Param("name") String name,
         @Param("productCategory") ProductCategory productCategory,
         @Param("productSubCategory") ProductSubCategory productSubCategory);
 
-    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory = :cid AND P.productSubCategory = :sid AND P.price BETWEEN :min AND :max")
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory.id = :cid AND P.productSubCategory.id = :sid AND P.price BETWEEN :min AND :max")
     public List<Product> getByCategoryAndSubCategoryAndPrice(@Param("name") String name, @Param("cid") long cid,
         @Param("sid") long sid, @Param("min") float min, @Param("max") float max);
+
+    @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory.categoryName = :categoryName AND P.productSubCategory.categoryName = :subcategoryName AND P.price BETWEEN :min AND :max")
+    public List<Product> getByCategoryAndSubCategoryAndPrice(@Param("name") String name,
+        @Param("categoryName") String categoryName, @Param("subcategoryName") String subcategoryName,
+        @Param("min") float min, @Param("max") float max);
 
     @Query("SELECT p FROM Product p WHERE P.name LIKE %:name% AND P.productCategory = :productCategory AND P.productSubCategory = :productSubCategory AND P.price BETWEEN :min AND :max")
     public List<Product> getByCategoryAndSubCategoryAndPrice(@Param("name") String name,

@@ -24,9 +24,10 @@ import com.onlinemarketplace.datamanagement.repository.ProductRepository;
 import com.onlinemarketplace.dto.domain.ProductDto;
 import com.onlinemarketplace.dto.helper.ProductDtoHelper;
 import com.onlinemarketplace.exception.InvalidParameterException;
+import com.onlinemarketplace.product.helper.PageingHelper;
 import com.onlinemarketplace.product.manager.CSVManager;
 import com.onlinemarketplace.product.service.ProductNameIdMappingService;
-import com.onlinemarketplace.product.service.ProductService;
+import com.onlinemarketplace.product.service.ProductServiceCache;
 import com.onlinemarketplace.rest.helper.ClassPathHealper;
 import com.onlinemarketplace.rest.responce.Response;
 
@@ -41,7 +42,7 @@ import com.onlinemarketplace.rest.responce.Response;
 public class ProductController {
 
     @Autowired
-    private ProductService service;
+    private ProductServiceCache service;
 
     @Autowired
     private ProductRepository repository;
@@ -90,7 +91,7 @@ public class ProductController {
             Pagenation<Product> products = service.getSortedAndPagingProduct(null, pageNumber, productPerPage);
 
             response.setStatus(true);
-            response.setResult(products);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), products));
         } catch (Exception exception) {
             response.setException(exception);
             response.setStatus(false);
@@ -105,7 +106,7 @@ public class ProductController {
 
         service.setRepository(repository);
         List<Product> products = service.getByCategory(value);
-        Pagenation<Product> pagenation = new Pagenation<Product>(products);
+        Pagenation<ProductDto> pagenation = new Pagenation<ProductDto>(productDtoHelper.serializeAll(products));
         if (!products.isEmpty()) {
             response.setStatus(true);
             response.setResult(pagenation);
@@ -127,7 +128,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -185,7 +186,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -204,7 +205,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -224,7 +225,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -246,7 +247,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -264,7 +265,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -283,7 +284,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -302,7 +303,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -322,7 +323,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -343,7 +344,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -363,7 +364,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -384,7 +385,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -406,7 +407,7 @@ public class ProductController {
         Pagenation<Product> pagenation = new Pagenation<Product>(products);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -428,7 +429,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -461,7 +462,7 @@ public class ProductController {
         Pagenation<Product> pagenation = service.getSortedAndPagingProduct(products, pageNumber, productPerPage);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(pagenation);
+            response.setResult(PageingHelper.convertDto(new ProductDtoHelper(), pagenation));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");
@@ -477,7 +478,7 @@ public class ProductController {
         List<Product> products = service.getByStatus(value);
         if (!products.isEmpty()) {
             response.setStatus(true);
-            response.setResult(products);
+            response.setResult(productDtoHelper.serializeAll(products));
         } else {
             response.setStatus(false);
             response.setMessage("No product found..");

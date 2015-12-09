@@ -28,7 +28,7 @@ public class ProductServiceTest {
     private ProductRepository repository;
 
     @Autowired
-    private ProductService service;
+    private ProductServiceCache service;
 
     @Autowired
     private CSVManager manager;
