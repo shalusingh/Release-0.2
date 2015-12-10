@@ -59,6 +59,19 @@ public class ProductServiceImplTest {
     }
 
     @Test
+    public void getByStatus() {
+        List<Product> products = service.getRepository().getByStatus(ProductStatus.ACTIVE);
+        assertEquals(34, products.size());
+    }
+
+    @Test
+    public void getByCode() {
+        Product product = service.getRepository().getByCode("RACCAR10001");
+        assertNotNull(product);
+        assertEquals("NEED FOR SPEED - VI", product.getName());
+    }
+
+    @Test
     public void getBySubCategory() {
 
         List<Product> products = service.getRepository().getBySubCategory(subCategoryService.getRepository()
@@ -116,6 +129,13 @@ public class ProductServiceImplTest {
         List<Product> products = service.getRepository().getByCategory("Need", "RACING");
         assertNotNull(products);
         assertEquals(7, products.size());
+    }
+
+    @Test
+    public void getByCategoryByName1() {
+        List<Product> products = service.getRepository().getByCategory("RACING");
+        assertNotNull(products);
+        assertEquals(8, products.size());
     }
 
     @Test

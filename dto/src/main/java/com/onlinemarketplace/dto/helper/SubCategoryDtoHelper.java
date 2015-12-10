@@ -3,6 +3,7 @@
  */
 package com.onlinemarketplace.dto.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.onlinemarketplace.dataentity.domain.ProductSubCategory;
@@ -25,9 +26,9 @@ public class SubCategoryDtoHelper
         if (base == null)
             throw new NullPointerException("Sub-Category is null.");
 
-        subCategoryDto.setCategoryId(base.getId());
+        subCategoryDto.setCategoryId(base.getCategory().getId());
         subCategoryDto.setName(base.getCategoryName());
-
+        subCategoryDto.setId(base.getId());
         return subCategoryDto;
     }
 
@@ -44,18 +45,23 @@ public class SubCategoryDtoHelper
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.onlinemarketplace.dto.helper.DTOHelperBase#serializeAll(java.util.List)
      */
     @Override
     public List<SubCategoryDto> serializeAll(List<ProductSubCategory> bases) throws NullPointerException {
-        // TODO Auto-generated method stub
-        return null;
+        List<SubCategoryDto> subCategoryDtos = new ArrayList<SubCategoryDto>();
+        if (bases == null)
+            throw new NullPointerException("List of sub-category is null or empty.");
+        for (ProductSubCategory productSubCategory : bases) {
+            subCategoryDtos.add(serialize(productSubCategory));
+        }
+        return subCategoryDtos;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.onlinemarketplace.dto.helper.DTOHelperBase#deSerializeAll(java.util.List)
      */
     @Override

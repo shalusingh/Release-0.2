@@ -3,21 +3,28 @@
  */
 package com.onlinemarketplace.product.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.onlinemarketplace.dataentity.base.comparator.ProductNameComparator;
+import com.onlinemarketplace.dataentity.constants.ProductConstants;
 import com.onlinemarketplace.dataentity.domain.Product;
 import com.onlinemarketplace.dataentity.dto.Pagenation;
 import com.onlinemarketplace.dataentity.enums.ProductStatus;
 import com.onlinemarketplace.datamanagement.repository.ProductRepository;
 import com.onlinemarketplace.exception.InvalidParameterException;
+import com.onlinemarketplace.product.helper.PageingHelper;
 
 /**
  * @author jitendra Dec 8, 2015 2015
  */
+@Service
 public class ProductServiceDb
     extends ProductService {
 
@@ -69,8 +76,7 @@ public class ProductServiceDb
      */
     @Override
     public List<Product> getByPrice(float min, float max) {
-        // TODO Auto-generated method stub
-        return null;
+        return repository.getByPrice(min, max);
     }
 
     /*
@@ -81,7 +87,6 @@ public class ProductServiceDb
      */
     @Override
     public List<Product> getByPropertyNameAndValue(String propertyName, String propertyValue) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -105,8 +110,7 @@ public class ProductServiceDb
      */
     @Override
     public List<Product> getByStatus(ProductStatus status) {
-        // TODO Auto-generated method stub
-        return null;
+        return repository.getByStatus(status);
     }
 
     /*
@@ -116,8 +120,7 @@ public class ProductServiceDb
      */
     @Override
     public Product getById(long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return repository.findOne(id);
     }
 
     /*
@@ -126,9 +129,8 @@ public class ProductServiceDb
      * @see com.onlinemarketplace.product.service.ProductService#getByProductCode(java.lang.String)
      */
     @Override
-    public List<Product> getByProductCode(String code) {
-        // TODO Auto-generated method stub
-        return null;
+    public Product getByProductCode(String code) {
+        return repository.getByCode(code);
     }
 
     /*
@@ -138,8 +140,11 @@ public class ProductServiceDb
      */
     @Override
     public List<Product> getSortedProductList() {
-        // TODO Auto-generated method stub
-        return null;
+        List<Product> products = null;
+        products = repository.findAll();
+        Collections.sort(products, new ProductNameComparator());
+
+        return products;
     }
 
     /*
@@ -147,10 +152,34 @@ public class ProductServiceDb
      *
      * @see com.onlinemarketplace.product.service.ProductService#getSortedAndPagingProduct(java.util.List, int, int)
      */
-    @Override
-    public Pagenation<Product> getSortedAndPagingProduct(List<Product> list, int pageNo, int productPerPage) {
-        // TODO Auto-generated method stub
-        return null;
+    public Pagenation<Product> getSortedAndPagingProduct(int pageNo, int productPerPage) {
+
+        List<Product> list = repository.findAll();
+
+        if (list == null
+            || list.isEmpty())
+            return null;
+
+        List<Product> resultList = new ArrayList<Product>();
+        Pagenation<Product> pagenation = new Pagenation<Product>();
+        Collections.sort(list, new ProductNameComparator());
+        int totalSize = list.size();
+        int[] pageing = PageingHelper.pagingCounters(productPerPage, pageNo, totalSize);
+
+        for (int i = pageing[ProductConstants.START]; i < pageing[ProductConstants.END]; i++) {
+            resultList.add(list.get(i));
+        }
+        Collections.sort(resultList, new ProductNameComparator());
+
+        pagenation.setiCount(totalSize);
+        pagenation.setiPageNo(pageNo);
+        pagenation.setiEnd(pageing[ProductConstants.END]);
+        pagenation.setiPageSize(productPerPage);
+        pagenation.setiStart(pageing[ProductConstants.START]);
+        pagenation.setResult(resultList);
+
+        return pagenation;
+
     }
 
 }

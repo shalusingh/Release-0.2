@@ -436,21 +436,21 @@ public class ProductServiceCache
      *
      */
     @Override
-    public List<Product> getByProductCode(String code) {
-        List<Product> result = new ArrayList<Product>();
+    public Product getByProductCode(String code) {
+        Product result = null;
         List<Product> products = new ArrayList<Product>(getProduct().values());
         if (!products.isEmpty()) {
             for (Product product : products) {
                 if (product != null) {
                     if (product.getProductCode().trim().equalsIgnoreCase(code.trim())) {
-                        result.add(product);
+                        result = product;
+                        break;
                     }
                 }
             }
         } else {
             logger.error("Products not found...");
         }
-        Collections.sort(result, new ProductNameComparator());
         return result;
     }
 
@@ -510,7 +510,7 @@ public class ProductServiceCache
      * @return List <{@link Product}>
      *
      */
-    @Override
+
     public Pagenation<Product> getSortedAndPagingProduct(List<Product> list, int pageNo, int productPerPage) {
 
         if (list == null

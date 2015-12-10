@@ -8,12 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.onlinemarketplace.dataentity.domain.ProductCategory;
 
-
 @Repository
 @Transactional
-public interface ProductCategoryRepository extends JpaRepository< ProductCategory,Long> {
-	
-	@Query("FROM ProductCategory pc WHERE pc.categoryName = :categoryName")
-	public ProductCategory getByName(@Param("categoryName") String name);
+public interface ProductCategoryRepository
+    extends JpaRepository<ProductCategory, Long> {
+
+    @Query("FROM ProductCategory pc WHERE pc.status = 1 AND pc.categoryName = :categoryName")
+    public ProductCategory getByName(@Param("categoryName") String name);
+
+    @Query("FROM ProductCategory pc WHERE pc.status = 1 AND pc.id = :id")
+    public ProductCategory getById(@Param("id") Long id);
 
 }

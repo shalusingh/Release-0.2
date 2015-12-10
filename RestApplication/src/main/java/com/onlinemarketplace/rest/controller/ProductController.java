@@ -28,6 +28,7 @@ import com.onlinemarketplace.product.helper.PageingHelper;
 import com.onlinemarketplace.product.manager.CSVManager;
 import com.onlinemarketplace.product.service.ProductNameIdMappingService;
 import com.onlinemarketplace.product.service.ProductServiceCache;
+import com.onlinemarketplace.product.service.ProductServiceDb;
 import com.onlinemarketplace.rest.helper.ClassPathHealper;
 import com.onlinemarketplace.rest.responce.Response;
 
@@ -56,6 +57,9 @@ public class ProductController {
 
     @Autowired
     private WebApplicationContext applicationContext;
+
+    @Autowired
+    private ProductServiceDb productServiceDb;
 
     private ProductDtoHelper productDtoHelper = new ProductDtoHelper();
 

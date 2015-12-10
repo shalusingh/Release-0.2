@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.onlinemarketplace.dataentity.domain.Product;
-import com.onlinemarketplace.dataentity.dto.Pagenation;
 import com.onlinemarketplace.dataentity.enums.ProductStatus;
 import com.onlinemarketplace.exception.InvalidParameterException;
 
@@ -119,7 +118,7 @@ public abstract class ProductService {
      * @return List <{@link Product}>
      *
      */
-    public abstract List<Product> getByProductCode(String code);
+    public abstract Product getByProductCode(String code);
 
     /**
      * Get sorted product list
@@ -131,20 +130,5 @@ public abstract class ProductService {
      *
      */
     public abstract List<Product> getSortedProductList();
-
-    /**
-     * Get sorted and paging product list
-     *
-     * @param list
-     *            : List <{@link Product}>
-     * @param pageNo
-     *            : int
-     * @param productPerPage
-     *            : int
-     *
-     * @return List <{@link Product}>
-     *
-     */
-    public abstract Pagenation<Product> getSortedAndPagingProduct(List<Product> list, int pageNo, int productPerPage);
 
 }

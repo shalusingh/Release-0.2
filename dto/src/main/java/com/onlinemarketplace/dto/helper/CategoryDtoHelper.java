@@ -3,6 +3,7 @@
  */
 package com.onlinemarketplace.dto.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.onlinemarketplace.dataentity.domain.ProductCategory;
@@ -44,23 +45,31 @@ public class CategoryDtoHelper
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.onlinemarketplace.dto.helper.DTOHelperBase#serializeAll(java.util.List)
      */
     @Override
     public List<CategoryDto> serializeAll(List<ProductCategory> bases) throws NullPointerException {
-        // TODO Auto-generated method stub
-        return null;
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
+        if (bases == null) {
+            throw new NullPointerException("No Category is found or null.");
+        } else {
+            for (ProductCategory productCategory : bases) {
+                categoryDtos.add(serialize(productCategory));
+            }
+        }
+        return categoryDtos;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.onlinemarketplace.dto.helper.DTOHelperBase#deSerializeAll(java.util.List)
      */
     @Override
     public List<ProductCategory> deSerializeAll(List<CategoryDto> dtos) throws NullPointerException {
-        // TODO Auto-generated method stub
+        if (dtos == null)
+            throw new NullPointerException("No Category is found or null.");
         return null;
     }
 
