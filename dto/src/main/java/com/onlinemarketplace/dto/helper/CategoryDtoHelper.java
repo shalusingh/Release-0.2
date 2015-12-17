@@ -6,12 +6,15 @@ package com.onlinemarketplace.dto.helper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.onlinemarketplace.dataentity.domain.ProductCategory;
 import com.onlinemarketplace.dto.domain.CategoryDto;
 
 /**
  * @author jitendra Dec 7, 2015 2015
  */
+@Transactional
 public class CategoryDtoHelper
     extends DTOHelperBase<ProductCategory, CategoryDto> {
 

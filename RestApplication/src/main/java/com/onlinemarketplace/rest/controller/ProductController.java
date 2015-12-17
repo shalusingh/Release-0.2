@@ -48,6 +48,7 @@ public class ProductController {
     @Autowired
     private ProductRepository repository;
 
+    @SuppressWarnings("unused")
     @Autowired
     private CSVManager manager;
 
@@ -58,6 +59,7 @@ public class ProductController {
     @Autowired
     private WebApplicationContext applicationContext;
 
+    @SuppressWarnings("unused")
     @Autowired
     private ProductServiceDb productServiceDb;
 

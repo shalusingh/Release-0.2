@@ -2,8 +2,7 @@ package com.onlinemarketplace.rest.config;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -13,23 +12,20 @@ import com.onlinemarketplace.datamanagement.config.DataManagementApplicationCont
 import com.onlinemarketplace.product.config.ProductConfig;
 
 @Configuration
-@Import(value = { 
-        DataManagementApplicationContext.class,
-        RestConfiguration.class,
-        ProductConfig.class
-        
-} )
+@Import(value = {
+    DataManagementApplicationContext.class, RestConfiguration.class, ProductConfig.class
+
+})
 public class MainConfig {
-	private static final Logger LOG = LoggerFactory.getLogger(MainConfig.class);
+    private static final Logger LOG = Logger.getLogger(MainConfig.class);
 
     @Autowired
-    private Environment  env;
-    
+    private Environment env;
+
     /**
      * Application custom initialization code.
      * <p/>
-     * Spring profiles can be configured with a system property
-     * -Dspring.profiles.active=javaee
+     * Spring profiles can be configured with a system property -Dspring.profiles.active=javaee
      * <p/>
      */
     @PostConstruct
@@ -39,7 +35,8 @@ public class MainConfig {
             LOG.info("No Spring profile configured, running with default configuration.");
         } else {
             for (String profile : env.getActiveProfiles()) {
-                LOG.info("Detected Spring profile: {}", profile);
+                LOG.info("Detected Spring profile:"
+                    + profile);
             }
         }
     }

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.onlinemarketplace.dataentity.domain.Product;
@@ -19,6 +20,7 @@ import com.onlinemarketplace.dto.domain.ProductDto;
 /**
  * @author jitendra Dec 7, 2015 2015
  */
+@Transactional
 public class ProductDtoHelper
     extends DTOHelperBase<Product, ProductDto> {
 

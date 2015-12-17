@@ -1,7 +1,6 @@
 package com.onlinemarketplace.rest.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,42 +12,45 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.onlinemarketplace.rest.controller","com.onlinemarketplace.rest.responce"})
+@ComponentScan(basePackages = {
+    "com.onlinemarketplace.rest.controller", "com.onlinemarketplace.rest.responce" })
 @Configuration
-@PropertySource(value = { "classpath:commen.properties" })
-public class RestConfiguration extends WebMvcConfigurerAdapter {
-	
-		private static final Logger LOG = LoggerFactory.getLogger(MainConfig.class);
-		
-	 @Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		 LOG.info(">> addResourceHandlers");
-	        registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(31556926);
-	        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
-	        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
-	        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
-	    }
-	 
-	 @Bean
-	    public InternalResourceViewResolver getInternalResourceViewResolver() {
-	        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-	        resolver.setPrefix("/WEB-INF/pages/");
-	        resolver.setSuffix(".jsp");
-	        return resolver;
-	    }
-	 
-	 
-	 @Bean(name = "messageSource")
-	    public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource() {
-	        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	        messageSource.setBasenames("classpath:messages");
-	        messageSource.setDefaultEncoding("UTF-8");
-	        return messageSource;
-	    }
-	 @Override
-	    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	        configurer.enable();
-	    }
+@PropertySource(value = {
+    "classpath:commen.properties" })
+public class RestConfiguration
+    extends WebMvcConfigurerAdapter {
+
+    private static final Logger LOG = Logger.getLogger(MainConfig.class);
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        LOG.info(">> addResourceHandlers");
+        registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/META-INF/resources/webjars/")
+            .setCachePeriod(31556926);
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+    }
+
+    @Bean
+    public InternalResourceViewResolver getInternalResourceViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/pages/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 }
