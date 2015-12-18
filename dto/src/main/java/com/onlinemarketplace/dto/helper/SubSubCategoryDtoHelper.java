@@ -5,12 +5,15 @@ package com.onlinemarketplace.dto.helper;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.onlinemarketplace.dataentity.domain.SubSubCategory;
 import com.onlinemarketplace.dto.domain.SubSubCategoryDto;
 
 /**
  * @author jitendra Dec 7, 2015 2015
  */
+@Transactional
 public class SubSubCategoryDtoHelper
     extends DTOHelperBase<SubSubCategory, SubSubCategoryDto> {
 
@@ -45,7 +48,7 @@ public class SubSubCategoryDtoHelper
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.onlinemarketplace.dto.helper.DTOHelperBase#serializeAll(java.util.List)
      */
     @Override
@@ -56,7 +59,7 @@ public class SubSubCategoryDtoHelper
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.onlinemarketplace.dto.helper.DTOHelperBase#deSerializeAll(java.util.List)
      */
     @Override
