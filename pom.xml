@@ -15,6 +15,9 @@
   	<module>exception</module>
   	<module>customermanagement</module>
   	<module>cart</module>
+  	<module>dto</module>
+  	<module>UI</module>
+  	<module>validationframework</module>
   </modules>
   
   
@@ -27,6 +30,7 @@
 		<conf.compiler.jdk>1.7</conf.compiler.jdk>
 
 		<versions.spring>4.1.2.RELEASE</versions.spring>
+		<versions.batch>3.0.6.RELEASE</versions.batch>
 		<!-- we must use a hibernate version which is based on jpa 2.0 -->
 		<versions.hibernate>4.2.16.Final</versions.hibernate>
 		<versions.jersey>2.13</versions.jersey>
@@ -121,6 +125,23 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context-support</artifactId>
 				<version>${versions.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.ws</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${versions.spring}</version>
+			</dependency>
+			
+			<!-- Spring Batch dependencies -->
+			<dependency>
+				<groupId>org.springframework.batch</groupId>
+				<artifactId>spring-batch-core</artifactId>
+				<version>${versions.batch}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.batch</groupId>
+				<artifactId>spring-batch-infrastructure</artifactId>
+				<version>${versions.batch}</version>
 			</dependency>
 			
 			
@@ -238,6 +259,13 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>3.0</version>
+			</dependency>
+			
+			 <!-- Number Utils -->
+			 <dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.6</version>
 			</dependency>
 			
 			

@@ -15,10 +15,14 @@
   <dependencies>
   
   	<!-- Internal dependency -->
-  			<dependency>
-				<groupId>com.onlinemarketplace.dataentity</groupId>
-				<artifactId>dataentiry</artifactId>
+  			
+			<dependency>
+				<groupId>com.onlinemarketplace.dto</groupId>
+				<artifactId>dto</artifactId>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
+			
+			
   	<!-- for spring IOC + transaction management -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -171,9 +175,10 @@
 				<artifactId>powermock-reflect</artifactId>
 				<scope>test</scope>
 			</dependency>
+
+
+
+
 			
-			
-			
-  
   </dependencies>
 </project>

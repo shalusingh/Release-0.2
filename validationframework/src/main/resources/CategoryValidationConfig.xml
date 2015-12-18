@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Validations>
+	<validation>
+		<name>Category</name>
+		<fields>
+			<field>
+				<name>categoryName</name>
+				<validates>
+					<validate>NotNullValidator</validate>
+					<validate>NotANumber</validate>
+				</validates>
+			</field>
+			<field>
+				<name>status</name>
+				<validates>
+					<validate>NotNullValidator</validate>
+					<validate>ValidStatus</validate>
+				</validates>
+			</field>
+		</fields>
+	</validation>
+</Validations>

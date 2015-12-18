@@ -17,21 +17,17 @@
 			 <dependency>
 				<groupId>com.onlinemarketplace.datamanagement</groupId>
 				<artifactId>datamanagement</artifactId>
+				
 			</dependency>
+			
 			<dependency>
 				<groupId>com.onlinemarketplace.product</groupId>
 				<artifactId>productmanagement</artifactId>
 			</dependency>
 			
 			<!-- for spring IOC + transaction management -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-			</dependency>
+			 
+			 
 
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -41,18 +37,8 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-			</dependency>
+			 
+			 
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
@@ -61,11 +47,7 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-			</dependency>
-			
+			 
 			<!-- Jackson -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -125,6 +107,13 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 			 </dependency>
+			 
+			 <!-- Number Utils -->
+			 <dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+			 </dependency>
+			 
 			
 			<!-- logging framework -->
 			<dependency>
@@ -144,11 +133,6 @@
 				<scope>test</scope>
 			</dependency>
 			 
-			<dependency>
-				<groupId>org.dbunit</groupId>
-				<artifactId>dbunit</artifactId>
-				<scope>test</scope>
-			</dependency>
 			<dependency>
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
