@@ -1,73 +1,91 @@
-/**
- *
- */
 package com.onlinemarketplace.validation.logic;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
-/**
- * @author jitendra Dec 17, 2015 2015
- */
-@Component
-public class ValidationManagerImpl
-    implements ValidationManager {
+import com.onlinemarketplace.validation.logic.ValidationResult.ResultCode;
+import com.onlinemarketplace.validation.model.Field;
+import com.onlinemarketplace.validation.model.Validation;
 
-    /** logger. */
-    private static final Logger logger = Logger.getLogger(ValidationManagerImpl.class);
+public class ValidationManagerImpl<DTO, STATUS>
+    implements ValidationManager<DTO, STATUS> {
 
-    @Autowired
-    private ApplicationContext appContext;
-
-    public Unmarshaller getInstance(String className) throws JAXBException, ClassNotFoundException {
-        return JAXBContext.newInstance(Class.forName(className)).createUnmarshaller();
+    public ValidationManagerImpl(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
-    public Marshaller getInstance(String className, Boolean property) throws JAXBException {
-        Marshaller marshaller = JAXBContext.newInstance(className).createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, property);
-        return marshaller;
-    }
+    private final ApplicationContext applicationContext;
 
-    public Object unMarshaller(String classtoBind, String url) throws JAXBException, ClassNotFoundException {
-        File file = getClassPathFile(url);
-        return getInstance(classtoBind).unmarshal(file);
-    }
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.onlinemarketplace.validation.logic.ValidationManager#validate(java.lang.Object,
+     * com.onlinemarketplace.validation.model.Validation)
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ValidationResult validate(DTO dto, Validation validation) {
+        ValidationResult result = new ValidationResult();
 
-    public void marshaller(Object object, String url) throws JAXBException {
-        Marshaller marshaller = getInstance(object.getClass().getName(), true);
-        marshaller.marshal(object, System.out);
-    }
-
-    public File getClassPathFile(String fileName) {
-        File file = null;
-        Resource resource = appContext.getResource("classpath:"
-            + fileName);
-        try {
-            if (resource.exists()) {
-                file = resource.getFile();
-            } else {
-                resource = appContext.getResource("classpath:"
-                    + fileName);
-                resource = resource.createRelative(fileName);
-
-            }
-        } catch (IOException ioException) {
-            logger.info(" >>> Unable to file file in class path");
-            ioException.printStackTrace();
+        if (validation == null) {
+            result.setCode(ResultCode.SUCCESS);
+            result.setErrorMessage("No Validation is found.");
         }
-        return file;
+
+        List<Field> validationList = validation.getFields();
+
+        if (validationList == null) {
+            result.setCode(ResultCode.SUCCESS);
+            result.setErrorMessage("No Validation is found.");
+        }
+
+        for (Field field : validationList) {
+
+            String fieldName = field.getFieldName();
+
+            Object fieldValue = null;
+            List<String> validator = field.getValidate();
+            AutowireCapableBeanFactory autowireCapableBeanFactory;
+            autowireCapableBeanFactory = applicationContext.getAutowireCapableBeanFactory();
+            Validator<DTO, STATUS> targetValidator;
+
+            try {
+                Class<? extends Object> dtoClass = dto.getClass();
+                fieldValue = dtoClass.getMethod("get"
+                    + fieldName).invoke(dto);
+
+                for (String valid : validator) {
+
+                    Class<? extends Validator<DTO, STATUS>> classz;
+                    classz = (Class<? extends Validator<DTO, STATUS>>) Class.forName(valid).asSubclass(
+                        Validator.class);
+
+                    targetValidator = (Validator<DTO, STATUS>) autowireCapableBeanFactory.createBean(classz,
+                        AutowireCapableBeanFactory.AUTOWIRE_NO, true);
+
+                    result = targetValidator.validate(fieldValue);
+
+                    if (result.getCode() == ResultCode.ABORT
+                        || result.getCode() == ResultCode.FAILED) {
+                        result.setErrorMessage(fieldName.concat(" "
+                            + result.getErrorMessage()));
+                        return result;
+                    }
+
+                }
+
+            } catch (Exception e) {
+                result.setCode(ResultCode.ABORT);
+                result.setErrorMessage(e.getMessage());
+                e.printStackTrace();
+                return result;
+            }
+        }
+
+        return result;
+
     }
 
 }

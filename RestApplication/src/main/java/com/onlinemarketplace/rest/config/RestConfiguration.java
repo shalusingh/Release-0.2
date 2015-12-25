@@ -8,9 +8,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.onlinemarketplace.datamanagement.service.AuthenticationService;
+import com.onlinemarketplace.datamanagement.serviceimpl.AuthenticationServiceImpl;
+import com.onlinemarketplace.rest.filter.AuthenticationFilter;
 
 @EnableWebMvc
 @ComponentScan(basePackages = {
@@ -53,4 +58,15 @@ public class RestConfiguration
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
+    @Bean
+    public AuthenticationService authenticationService() {
+        return new AuthenticationServiceImpl();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AuthenticationFilter(authenticationService()));
+    }
+
 }

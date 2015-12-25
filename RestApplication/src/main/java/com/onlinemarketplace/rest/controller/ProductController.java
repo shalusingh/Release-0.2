@@ -20,6 +20,7 @@ import org.springframework.web.util.UriTemplate;
 
 import com.onlinemarketplace.dataentity.domain.Product;
 import com.onlinemarketplace.dataentity.dto.Pagenation;
+import com.onlinemarketplace.dataentity.enums.Right;
 import com.onlinemarketplace.datamanagement.repository.ProductRepository;
 import com.onlinemarketplace.dto.domain.ProductDto;
 import com.onlinemarketplace.dto.helper.ProductDtoHelper;
@@ -29,6 +30,7 @@ import com.onlinemarketplace.product.manager.CSVManager;
 import com.onlinemarketplace.product.service.ProductNameIdMappingService;
 import com.onlinemarketplace.product.service.ProductServiceCache;
 import com.onlinemarketplace.product.service.ProductServiceDb;
+import com.onlinemarketplace.rest.filter.Authentication;
 import com.onlinemarketplace.rest.helper.ClassPathHealper;
 import com.onlinemarketplace.rest.responce.Response;
 
@@ -67,6 +69,7 @@ public class ProductController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @Transactional
+    @Authentication(right = Right.READ)
     public @ResponseBody Response<ProductDto> getAllProduct() {
         Response<ProductDto> response = new Response<ProductDto>();
         service.setFile(ClassPathHealper.getClassPathFile("product.csv", applicationContext));

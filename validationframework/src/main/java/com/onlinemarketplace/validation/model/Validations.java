@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.onlinemarketplace.validation.model;
 
 import java.util.List;
@@ -15,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Validations")
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public class Validations {
 
     @XmlElement(name = "validation")

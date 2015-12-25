@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.onlinemarketplace.validation.model;
 
 import java.util.List;
@@ -19,8 +16,8 @@ public class Validation {
     @XmlElement(name = "name")
     private String domainClassName;
 
-    @XmlElementWrapper(name = "items")
-    @XmlElement(name = "item")
+    @XmlElementWrapper(name = "fields")
+    @XmlElement(name = "field")
     List<Field> fields;
 
     public String getDomainClassName() {
