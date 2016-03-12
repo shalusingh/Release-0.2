@@ -42,6 +42,19 @@
 				<groupId>org.springframework.batch</groupId>
 				<artifactId>spring-batch-infrastructure</artifactId>
 			 </dependency>
+			 
+			 	<!-- String Utils -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+			 </dependency>
+			 
+			 <!-- Number Utils -->
+			 <dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+			 </dependency>
+			 
 			
 			<!-- JAXB -->
 			 <dependency>
@@ -107,6 +120,11 @@
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-reflect</artifactId> 
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.onlinemarketplace.dto</groupId>
+				<artifactId>dto</artifactId>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
   </dependencies>
 </project>

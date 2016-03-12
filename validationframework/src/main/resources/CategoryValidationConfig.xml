@@ -4,19 +4,52 @@
 		<name>Category</name>
 		<fields>
 			<field>
-				<name>categoryName</name>
+				<name>Name</name>
+				<type>String</type>
 				<validates>
-					<validate>NotNullValidator</validate>
-					<validate>NotANumber</validate>
+					<validate>com.onlinemarketplace.validation.validator.NullValidator</validate>
+					<validate>com.onlinemarketplace.validation.validator.NotANumber</validate>
 				</validates>
-			</field>
+			</field>			
+		</fields>
+	</validation>
+	
+	<validation>
+		<name>SubCategory</name>
+		<fields>
 			<field>
-				<name>status</name>
+				<name>Name</name>
+				<type>String</type>
 				<validates>
-					<validate>NotNullValidator</validate>
-					<validate>ValidStatus</validate>
+					<validate>com.onlinemarketplace.validation.validator.NullValidator</validate>
+					<validate>com.onlinemarketplace.validation.validator.NotANumber</validate>
+				</validates>
+			</field>			
+		</fields>
+	</validation>
+	
+	<validation>
+		<name>Product</name>
+		<fields>
+			<field>
+				<name>productCode</name>
+				<type>String</type>
+				<validates>
+					<validate>com.onlinemarketplace.validation.validator.NullValidator</validate>
+					<validate>com.onlinemarketplace.validation.validator.NotANumber</validate>
+					<validate>com.onlinemarketplace.validation.validator.UniqueProductCodeValidator</validate>
 				</validates>
 			</field>
+			
+			<field>
+				<name>Category</name>
+				<type>CategoryDto</type>
+				<validates>
+					<validate>com.onlinemarketplace.validation.validator.NullValidator</validate>
+					<validate>com.onlinemarketplace.validation.validator.NotANumber</validate>
+					<validate>com.onlinemarketplace.validation.validator.UniqueProductCodeValidator</validate>
+				</validates>
+			</field>			
 		</fields>
 	</validation>
 </Validations>
