@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.onlinemarketplace.dataentity.builder.CategoryBuilder;
 import com.onlinemarketplace.dataentity.domain.ProductCategory;
+import com.onlinemarketplace.dataentity.enums.Right;
 import com.onlinemarketplace.datamanagement.service.ProductCategoryService;
 import com.onlinemarketplace.dto.helper.CategoryDtoHelper;
+import com.onlinemarketplace.rest.filter.Authentication;
 import com.onlinemarketplace.rest.responce.Response;
 
 /**
@@ -37,6 +39,7 @@ public class CategoryController {
     private CategoryDtoHelper categoryDtoHelper = new CategoryDtoHelper();
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @Authentication(right = Right.READ)
     public @ResponseBody Response<ProductCategory> getAll(HttpServletResponse httpServletResponse) {
         Response<ProductCategory> response = new Response<ProductCategory>();
         try {
