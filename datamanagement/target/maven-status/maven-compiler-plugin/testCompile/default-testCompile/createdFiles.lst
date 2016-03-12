@@ -1,7 +1,0 @@
-com\onlinemarketplace\datamanagement\serviceimpl\test\ProductCategoryImplTest.class
-com\onlinemarketplace\datamanagement\helper\test\ProductHelperTest.class
-com\onlinemarketplace\datamanagement\serviceimpl\test\ProductSubCategoryServiceImpltTest.class
-com\onlinemarketplace\datamanagement\serviceimpl\test\ProductServiceImplTest.class
-com\onlinemarketplace\datamanagement\serviceimpl\test\CartImplTest.class
-com\onlinemarketplace\datamanagement\serviceimpl\test\CustomerServiceImplTest.class
-com\onlinemarketplace\datamanagement\config\JpaTestConfig.class

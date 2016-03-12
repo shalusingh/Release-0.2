@@ -1,8 +1,0 @@
-com\onlinemarketplace\exception\FieldNotPersist.class
-com\onlinemarketplace\exception\InvalidEnumException.class
-com\onlinemarketplace\exception\UnauthorizedAccess.class
-com\onlinemarketplace\exception\InvalidRequestException.class
-com\onlinemarketplace\exception\config\ExceptionConfig.class
-com\onlinemarketplace\exception\InvalidParameterException.class
-com\onlinemarketplace\exception\FieldNotFoundException.class
-com\onlinemarketplace\exception\InvalidNameValuePairException.class
