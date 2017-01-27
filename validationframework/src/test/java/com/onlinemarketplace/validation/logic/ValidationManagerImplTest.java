@@ -26,10 +26,11 @@ import com.onlinemarketplace.validation.parser.ParserManager;
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ValidationManagerImplTest {
+	
+	@Autowired
+	CategoryValidationManager categoryValidationManager;
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
+     
     @Autowired
     private ParserManager parserManager;
 
@@ -37,10 +38,8 @@ public class ValidationManagerImplTest {
     public void validate() throws ClassNotFoundException, NullPointerException, JAXBException {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setName("NewCategory");
-
-        ValidationManagerImpl<CategoryDto, Status> validationManagerImpl =
-            new ValidationManagerImpl<CategoryDto, Status>(applicationContext);
-        ValidationResult validationResult = validationManagerImpl.validate(categoryDto, parserManager.getValidation(
+       
+        ValidationResult validationResult = categoryValidationManager.validate(categoryDto, parserManager.getValidation(
             "Category"));
         Assert.assertNotNull(validationResult);
         Assert.assertEquals(ResultCode.SUCCESS, validationResult.getCode());
@@ -52,9 +51,7 @@ public class ValidationManagerImplTest {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setName("111111");
 
-        ValidationManagerImpl<CategoryDto, Status> validationManagerImpl =
-            new ValidationManagerImpl<CategoryDto, Status>(applicationContext);
-        ValidationResult validationResult = validationManagerImpl.validate(categoryDto, parserManager.getValidation(
+        ValidationResult validationResult = categoryValidationManager.validate(categoryDto, parserManager.getValidation(
             "Category"));
         Assert.assertNotNull(validationResult);
         Assert.assertEquals(ResultCode.FAILED, validationResult.getCode());

@@ -29,6 +29,7 @@ public class ProductCategoryImplTest {
             + ""));
     }
 
+   
     public void insert() {
         ProductCategory category = new ProductCategory();
         category.setCategoryName("RACING");

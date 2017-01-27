@@ -23,7 +23,7 @@ import com.onlinemarketplace.validation.model.Validations;
 /**
  * @author jitendra Dec 17, 2015 2015
  */
-@Component
+
 public class ParserManagerImpl
     implements ParserManager {
 
@@ -38,33 +38,29 @@ public class ParserManagerImpl
     @Autowired
     private Environment environment;
 
-    @Override
-    public Unmarshaller getInstance(String className) throws JAXBException, ClassNotFoundException {
-        return JAXBContext.newInstance(Class.forName(className)).createUnmarshaller();
-    }
+	public Unmarshaller getInstance(String className) throws JAXBException, ClassNotFoundException {
+		 return JAXBContext.newInstance(Class.forName(className)).createUnmarshaller();
+	}
 
-    @Override
-    public Marshaller getInstance(String className, Boolean property) throws JAXBException {
-        Marshaller marshaller = JAXBContext.newInstance(className).createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, property);
-        return marshaller;
-    }
+	public Marshaller getInstance(String className, Boolean property) throws JAXBException {
+		 Marshaller marshaller = JAXBContext.newInstance(className).createMarshaller();
+	        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, property);
+	        return marshaller;
+	}
 
-    @Override
-    public Object unMarshaller(String classtoBind, String url) throws JAXBException, ClassNotFoundException {
-        File file = getClassPathFile(url);
+	public Object unMarshaller(String classtoBind, String url) throws JAXBException, ClassNotFoundException {
+		File file = getClassPathFile(url);
         return getInstance(classtoBind).unmarshal(file);
-    }
+	}
 
-    @Override
-    public void marshaller(Object object, String url) throws JAXBException {
-        Marshaller marshaller = getInstance(object.getClass().getName(), true);
-        marshaller.marshal(object, System.out);
-    }
+	public void marshaller(Object object, String url) throws JAXBException {
+		 Marshaller marshaller = getInstance(object.getClass().getName(), true);
+	        marshaller.marshal(object, System.out);
+		
+	}
 
-    @Override
-    public File getClassPathFile(String fileName) {
-        File file = null;
+	public File getClassPathFile(String fileName) {
+		File file = null;
         Resource resource = appContext.getResource("classpath:"
             + fileName);
         try {
@@ -81,16 +77,10 @@ public class ParserManagerImpl
             ioException.printStackTrace();
         }
         return file;
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.onlinemarketplace.validation.parser.ParserManager#getList(java.lang.String)
-     */
-    @Override
-    public List<Field> getList(String className) throws ClassNotFoundException, JAXBException, NullPointerException {
-        Validations validations;
+	public List<Field> getList(String className) throws ClassNotFoundException, JAXBException, NullPointerException {
+		Validations validations;
 
         validations = (Validations) unMarshaller(ParserManagerImpl.validation, environment.getProperty(
             "ProductCategory"));
@@ -105,31 +95,33 @@ public class ParserManagerImpl
         }
 
         return null;
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.onlinemarketplace.validation.parser.ParserManager#getValidation(java.lang.String)
-     */
-    @Override
-    public Validation getValidation(String className) throws ClassNotFoundException, JAXBException,
-        NullPointerException {
-        Validations validations;
+	public Validation getValidation(String className)
+			throws ClassNotFoundException, JAXBException, NullPointerException {
+		 Validations validations;
 
-        validations = (Validations) unMarshaller(ParserManagerImpl.validation, environment.getProperty(
-            "ProductCategory"));
-        if (validations.getList() == null)
-            throw new NullPointerException("No Validation found.");
+	        validations = (Validations) unMarshaller(ParserManagerImpl.validation, environment.getProperty(
+	            "ProductCategory"));
+	        if (validations.getList() == null)
+	            throw new NullPointerException("No Validation found.");
 
-        for (Validation validation : validations.getList()) {
-            String name = validation.getDomainClassName();
-            if (className.trim().equalsIgnoreCase(name.trim())) {
-                return validation;
-            }
-        }
+	        for (Validation validation : validations.getList()) {
+	            String name = validation.getDomainClassName();
+	            if (className.trim().equalsIgnoreCase(name.trim())) {
+	                return validation;
+	            }
+	        }
 
-        return null;
-    }
+	        return null;
+	}
 
+	
+	
+	
+	 
+ 
+	    
+	    
+   
 }

@@ -175,6 +175,7 @@ public class CSVManager {
                 product.setId(Long.parseLong(record.get("ID")));
                 product.setProductCode(record.get("PRODUCTCODE"));
                 product.setName(record.get("NAME"));
+                
                 product.setProductCategory(categoryService.getRepository().getByName(record.get("CATEGORY")));
 
                 product.setProductSubCategory(subCategoryService.getRepository().getByName(record.get("SUBCATEGORY"),

@@ -14,16 +14,20 @@ public class SecurityConfig
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("mkyong").password("123456").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("123456").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("dba").password("123456").roles("DBA");
+        auth.inMemoryAuthentication().withUser("mkyong@gmail.com").password("123456").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin@gmail.com").password("123456").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("dba@gmail.com").password("123456").roles("DBA");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')").antMatchers("/dba/**")
-            .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin();
+    	http.authorizeRequests().antMatchers("/resources/**").permitAll();
+    	
+        http.authorizeRequests().antMatchers("/**").access("hasRole('ROLE_ADMIN')").antMatchers("/dba/**")
+            .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin().loginPage("/login").permitAll()
+            .and().logout().logoutSuccessUrl("/login?logout")
+		.and()
+		    .csrf();
 
     }
 }

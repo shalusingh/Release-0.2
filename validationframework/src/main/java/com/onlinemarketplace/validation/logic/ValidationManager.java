@@ -1,6 +1,9 @@
 package com.onlinemarketplace.validation.logic;
 
+import org.springframework.stereotype.Service;
+
 import com.onlinemarketplace.validation.model.Validation;
+
 
 public interface ValidationManager<DTO, STATUS> {
 
