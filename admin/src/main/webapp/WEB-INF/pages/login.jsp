@@ -42,7 +42,7 @@
 		</c:if>
 
     <form name='loginForm'
-		    action="<c:url value='/welcome' />" method='POST'>
+		    action="<c:url value='/loginProcess' />" method='POST'>
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="user"/>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

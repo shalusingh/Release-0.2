@@ -24,7 +24,9 @@ public class SecurityConfig
     	http.authorizeRequests().antMatchers("/resources/**").permitAll();
     	
         http.authorizeRequests().antMatchers("/**").access("hasRole('ROLE_ADMIN')").antMatchers("/dba/**")
-            .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin().loginPage("/login").permitAll()
+            .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin()
+            .loginPage("/login").loginProcessingUrl("/loginProcess").failureUrl("/login?error")
+            .defaultSuccessUrl("/*").usernameParameter("user").passwordParameter("password").permitAll()
             .and().logout().logoutSuccessUrl("/login?logout")
 		.and()
 		    .csrf();
